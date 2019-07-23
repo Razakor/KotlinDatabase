@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="305.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.report.StateOfAffairsController">
+   <children>
+      <Button layoutX="698.0" layoutY="267.0" mnemonicParsing="false" onAction="#excelExport" prefWidth="100.0" text="Вивести в Excel" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+      <Label fx:id="instituteLabel" layoutX="121.0" layoutY="213.0" text="Інститут:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0" />
+      <Label fx:id="groupLabel" layoutX="50.0" layoutY="213.0" text="Група:" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="120.0" />
+      <Label fx:id="vntuLabel" layoutX="215.0" layoutY="213.0" text="Підрозділ ВНТУ:" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="240.0" />
+      <Label fx:id="countryLabel" layoutX="48.0" layoutY="309.0" text="Країна:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0" />
+      <Label fx:id="stateLabel" layoutX="112.0" layoutY="309.0" text="Область:" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="180.0" />
+      <Label fx:id="regionLabel" layoutX="197.0" layoutY="309.0" text="Район:" AnchorPane.leftAnchor="380.0" AnchorPane.topAnchor="180.0" />
+      <Label fx:id="cityLabel" layoutX="286.0" layoutY="309.0" text="Місто:" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="180.0" />
+      <Label fx:id="enterpriseLabel" layoutX="41.0" layoutY="396.0" text="Підприємство:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="240.0" />
+      <ComboBox fx:id="instituteComboBox" layoutX="17.0" layoutY="255.0" onAction="#setInstitute" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0" />
+      <ComboBox fx:id="groupComboBox" layoutX="184.0" layoutY="255.0" onAction="#setGroup" prefWidth="150.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="140.0" />
+      <ComboBox fx:id="vntuComboBox" layoutX="367.0" layoutY="255.0" onAction="#setVNTU" prefWidth="300.0" AnchorPane.leftAnchor="360.0" AnchorPane.topAnchor="260.0" />
+      <ComboBox fx:id="countryComboBox" layoutX="17.0" layoutY="344.0" onAction="#setCountry" prefWidth="150.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="200.0" />
+      <ComboBox fx:id="stateComboBox" layoutX="197.0" layoutY="344.0" onAction="#setState" prefWidth="150.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="200.0" />
+      <ComboBox fx:id="regionComboBox" layoutX="374.0" layoutY="344.0" onAction="#setRegion" prefWidth="150.0" AnchorPane.leftAnchor="380.0" AnchorPane.topAnchor="200.0" />
+      <ComboBox fx:id="cityComboBox" layoutX="535.0" layoutY="344.0" onAction="#setCity" prefWidth="150.0" AnchorPane.leftAnchor="560.0" AnchorPane.topAnchor="200.0" />
+      <ComboBox fx:id="enterpriseComboBox" layoutX="17.0" layoutY="431.0" onAction="#setEnterprise" prefWidth="300.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0" />
+      <RadioButton layoutX="31.0" layoutY="24.0" mnemonicParsing="false" selected="true" text="Список студентів не розподілених для проходження р/т" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <toggleGroup>
+            <ToggleGroup fx:id="radioGroup" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="31.0" layoutY="53.0" mnemonicParsing="false" text="Список студентів, які проходять р/т в обраному місті (підприємстві, підрозділі)" toggleGroup="$radioGroup" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0" />
+      <RadioButton layoutX="31.0" layoutY="84.0" mnemonicParsing="false" text="Список студентів - розподілених на р/т" toggleGroup="$radioGroup" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
+   </children>
+</AnchorPane>

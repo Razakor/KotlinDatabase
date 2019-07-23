@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="110.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.edit.EditVntuDepController">
+    <children>
+        <Button layoutX="123.0" layoutY="194.0" mnemonicParsing="false" text="Зберегти" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0" onAction="#editDepQuery"/>
+        <Button fx:id="closeButton" layoutX="150.0" layoutY="60.0" mnemonicParsing="false" text="Відмінити" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="60.0" onAction="#cancel"/>
+        <TextField fx:id="textField" layoutX="175.0" layoutY="100.0" prefWidth="300.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+    </children>
+</AnchorPane>

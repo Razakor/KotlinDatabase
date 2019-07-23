@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="500.0" prefWidth="1180.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.report.StatisticsController">
+   <children>
+      <TableView fx:id="bachelorTable" layoutX="17.0" layoutY="26.0" prefHeight="45.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="600.0" AnchorPane.topAnchor="40.0">
+        <columns>
+            <TableColumn prefWidth="75.0" text="Факультет:" />
+          <TableColumn prefWidth="120.0" text="Всього студентів:" />
+          <TableColumn prefWidth="120.0" text="Розподілено, чол.:" />
+          <TableColumn prefWidth="120.0" text="Розподілено, %:" />
+          <TableColumn prefWidth="120.0" text="Не розподілено:" />
+        </columns>
+      </TableView>
+      <TableView fx:id="juniorSpecialistTable" layoutX="508.0" layoutY="40.0" prefHeight="45.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="600.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
+          <columns>
+            <TableColumn prefWidth="75.0" text="Факультет:" />
+              <TableColumn prefWidth="120.0" text="Всього студентів:" />
+              <TableColumn prefWidth="120.0" text="Розподілено, чол.:" />
+              <TableColumn prefWidth="120.0" text="Розподілено, %:" />
+              <TableColumn prefWidth="120.0" text="Не розподілено:" />
+          </columns>
+      </TableView>
+      <Label layoutX="20.0" layoutY="14.0" text="Бакалаври:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="449.0" layoutY="213.0" text="Молодші спеціалісти:" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="20.0" />
+   </children>
+</AnchorPane>

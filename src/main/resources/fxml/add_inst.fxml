@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="-Infinity" prefHeight="200.0" prefWidth="440.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.add.AddInstController">
+   <children>
+      <Label layoutX="19.0" layoutY="53.0" text="Скорочена назва:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="19.0" layoutY="142.0" text="Повна назва:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0" />
+      <TextField fx:id="shortNameTextField" layoutX="19.0" layoutY="77.0" prefHeight="25.0" prefWidth="100.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+      <TextField fx:id="nameTextField" layoutX="5.0" layoutY="167.0" prefHeight="30.0" prefWidth="400.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+      <Button layoutY="241.0" mnemonicParsing="false" onAction="#addInstQuery" text="Зберегти" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="160.0" />
+      <Button fx:id="closeButton" layoutX="533.0" layoutY="241.0" mnemonicParsing="false" onAction="#cancel" text="Відмінити" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="160.0" />
+   </children>
+</AnchorPane>

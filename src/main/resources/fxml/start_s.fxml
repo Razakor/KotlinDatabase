@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.preparation.StartSController">
+   <children>
+      <Label layoutX="47.0" layoutY="43.0" text="Курс:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="23.0" />
+      <Label layoutX="100.0" layoutY="64.0" text="Кінець:" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="63.0" />
+      <Label layoutX="117.0" layoutY="23.0" text="Початок:" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="23.0" />
+      <TextField layoutX="61.0" layoutY="25.0" prefWidth="25.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="20.0" />
+      <DatePicker fx:id="startDatePicker" layoutX="166.0" layoutY="20.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="20.0" />
+      <DatePicker fx:id="endDatePicker" layoutX="166.0" layoutY="69.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="60.0" />
+      <Button onAction="#save" layoutX="128.0" layoutY="117.0" mnemonicParsing="false" text="Зберегти" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="110.0" />
+      <Button layoutX="225.0" layoutY="142.0" mnemonicParsing="false" text="Підготувати базу" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="150.0" />
+      <Button layoutX="165.0" layoutY="150.0" mnemonicParsing="false" text="Перехід на наступний курс" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="150.0" />
+   </children>
+</AnchorPane>

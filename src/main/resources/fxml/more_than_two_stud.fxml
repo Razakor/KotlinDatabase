@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="165.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.check.MoreThanTwoStudController">
+   <children>
+      <Button onAction="#form" layoutY="179.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="460.0" text="Сформувати" textAlignment="CENTER" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="120.0">
+         <padding>
+            <Insets left="100.0" right="100.0" />
+         </padding></Button>
+      <ComboBox fx:id="countryComboBox" onAction="#setCountry" layoutX="17.0" layoutY="71.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="40.0" />
+      <ComboBox fx:id="stateComboBox" onAction="#setState" layoutX="151.0" layoutY="71.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="40.0" />
+      <ComboBox fx:id="regionComboBox" onAction="#setRegion" layoutX="288.0" layoutY="71.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="40.0" />
+      <ComboBox fx:id="cityComboBox" onAction="#setCity" layoutX="449.0" layoutY="71.0" prefHeight="25.0" prefWidth="140.0" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="40.0" />
+      <Label layoutX="17.0" layoutY="54.0" text="Країна:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="151.0" layoutY="54.0" text="Область:" AnchorPane.leftAnchor="180.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="288.0" layoutY="54.0" text="Район:" AnchorPane.leftAnchor="340.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="449.0" layoutY="54.0" text="Місто:" AnchorPane.leftAnchor="500.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="101.0" layoutY="125.0" text="Перелік підприємств, де працює більше" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="80.0" />
+      <Label layoutX="355.0" layoutY="125.0" text="-х студентів під час робочого триместру" AnchorPane.leftAnchor="355.0" AnchorPane.topAnchor="80.0" />
+      <TextField fx:id="textField" layoutX="329.0" layoutY="121.0" prefHeight="25.0" prefWidth="21.0" text="2" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="80.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.directories.StudentStateController">
+   <children>
+      <Button fx:id="editInstButton" layoutX="371.0" layoutY="24.0" mnemonicParsing="false" onAction="#editInst" text="E" AnchorPane.leftAnchor="371.0" AnchorPane.topAnchor="24.0" />
+      <Button fx:id="addInstButton" layoutX="394.0" layoutY="24.0" mnemonicParsing="false" onAction="#addInst" text="+" />
+      <Button layoutX="419.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteInstitute" text="-" AnchorPane.topAnchor="24.0" />
+      <Button fx:id="editGroupButton" layoutX="591.0" layoutY="24.0" mnemonicParsing="false" onAction="#editGroup" text="E" />
+      <Button fx:id="addGroupButton" layoutX="614.0" layoutY="24.0" mnemonicParsing="false" onAction="#addGroup" text="+" />
+      <Button layoutX="639.0" layoutY="27.0" mnemonicParsing="false" onAction="#deleteGroup" text="-" AnchorPane.topAnchor="24.0" />
+       <Button fx:id="deleteStudButton" layoutX="936.0" layoutY="94.0" mnemonicParsing="false" onAction="#deleteStudent" text="-" AnchorPane.rightAnchor="43.0" AnchorPane.topAnchor="94.0" />
+       <Button fx:id="addStudButton" layoutX="911.0" layoutY="94.0" mnemonicParsing="false" onAction="#addStud" text="+" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="94.0" />
+       <Button fx:id="editStudButton" layoutX="888.0" layoutY="94.0" mnemonicParsing="false" onAction="#editStud" text="E" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="94.0" />
+       <Button fx:id="excelExportButton" layoutX="941.0" layoutY="96.0" mnemonicParsing="false" onAction="#excelExport" text="P" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="94.0" />
+      <Label layoutX="43.0" layoutY="55.0" text="Курс:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="53.0" />
+      <Label layoutX="225.0" layoutY="59.0" text="Інститут:" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="53.0" />
+      <Label layoutX="463.0" layoutY="53.0" text="Група:" AnchorPane.leftAnchor="460.0" AnchorPane.topAnchor="53.0" />
+      <Label layoutX="29.0" layoutY="108.0" text="Список студентів:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
+      <ComboBox fx:id="courseComboBox" layoutX="66.0" layoutY="46.0" onAction="#setCourse" prefWidth="150.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="50.0" />
+      <ComboBox fx:id="instituteComboBox" layoutX="285.0" layoutY="50.0" onAction="#setInstitute" prefWidth="150.0" AnchorPane.leftAnchor="290.0" AnchorPane.topAnchor="50.0" />
+      <ComboBox fx:id="groupComboBox" layoutX="516.0" layoutY="50.0" onAction="#setGroup" prefWidth="150.0" AnchorPane.leftAnchor="510.0" AnchorPane.topAnchor="50.0" />
+      <TableView fx:id="resultTable" layoutX="14.0" layoutY="138.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
+          <columns>
+              <TableColumn prefWidth="70.0" text="Код" />
+              <TableColumn prefWidth="70.0" text="Інститут" />
+              <TableColumn prefWidth="70.0" text="Група" />
+              <TableColumn prefWidth="120.0" text="Прізвище" />
+              <TableColumn prefWidth="180.0" text="Ім'я та по батькові" />
+              <TableColumn prefWidth="240.0" text="Спеціальність" />
+              <TableColumn prefWidth="35.0" text="Курс" />
+              <TableColumn prefWidth="50.0" text="Розряд" />
+              <TableColumn prefWidth="100.0" text="Додатково" />
+              <TableColumn prefWidth="110.0" text="Форма навчання" />
+          </columns>
+      </TableView>
+      <Button fx:id="importExcel" layoutX="889.0" layoutY="70.0" mnemonicParsing="false" onAction="#importExcel" prefHeight="25.0" prefWidth="92.0" text="Імпорт" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="68.0" />
+   </children>
+</AnchorPane>

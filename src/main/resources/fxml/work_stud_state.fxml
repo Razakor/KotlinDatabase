@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.directories.WorkStudStateController">
+   <children>
+      <TableView fx:id="resultTable" layoutX="34.0" layoutY="47.0" prefHeight="332.0" prefWidth="335.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+        <columns>
+          <TableColumn prefWidth="343.0" text="Найменування спеціальності" />
+        </columns>
+      </TableView>
+      <Button layoutX="317.0" layoutY="20.0" mnemonicParsing="false" onAction="#editSpec" prefHeight="25.0" prefWidth="25.0" text="E" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="20.0" />
+      <Button layoutX="342.0" layoutY="20.0" maxHeight="25.0" maxWidth="25.0" mnemonicParsing="false" onAction="#addSpec" text="+" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="20.0" />
+      <Button layoutX="347.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0" text="-" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" onAction="#deleteSpec"/>
+   </children>
+</AnchorPane>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="-Infinity" prefHeight="310.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.edit.EditEnterpriseController">
+   <children>
+      <TextField fx:id="nameTextField" layoutX="14.0" layoutY="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
+      <TextField fx:id="indexTextField" layoutX="20.0" layoutY="98.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="100.0" />
+      <TextField fx:id="adressTextField" layoutX="203.0" layoutY="100.0" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
+      <TextField fx:id="telephoneTextField" layoutX="8.0" layoutY="200.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="160.0" />
+      <TextField fx:id="faxTextField" layoutX="270.0" layoutY="200.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="160.0" />
+      <TextField fx:id="emailTextField" layoutX="20.0" layoutY="239.0" prefHeight="25.0" prefWidth="265.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="220.0" />
+      <Button layoutX="184.0" layoutY="273.0" mnemonicParsing="false" onAction="#editEnterprise" text="Зберегти" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="260.0" />
+      <Button fx:id="closeButton" layoutX="303.0" layoutY="273.0" mnemonicParsing="false" onAction="#cancel" text="Відмінити" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="260.0" />
+      <Label layoutX="105.0" layoutY="14.0" text="Назва підприємства:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="20.0" layoutY="81.0" text="Адреса:" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0" />
+      <Label layoutX="20.0" layoutY="80.0" text="Індекс:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="450.0" AnchorPane.topAnchor="80.0" />
+      <Label layoutX="20.0" layoutY="146.0" text="Телефон:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="140.0" />
+      <Label layoutX="315.0" layoutY="140.0" text="Label" AnchorPane.bottomAnchor="253.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="257.0" AnchorPane.topAnchor="140.0" />
+      <Label layoutX="20.0" layoutY="197.0" prefHeight="17.0" prefWidth="265.0" text="Email:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="315.0" AnchorPane.topAnchor="200.0" />
+      <Label layoutX="336.0" layoutY="140.0" text="Факс:" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0" />
+      <TextField fx:id="websiteTextField" layoutX="315.0" layoutY="220.0" prefHeight="25.0" prefWidth="265.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="220.0" />
+      <Label layoutX="315.0" layoutY="200.0" prefHeight="17.0" prefWidth="265.0" text="Вебсайт:" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0" />
+   </children>
+</AnchorPane>
