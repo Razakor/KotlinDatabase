@@ -10,41 +10,30 @@ import javafx.stage.Stage
 import java.sql.SQLException
 
 class AddGroupController {
+    lateinit var closeButton: Button
+    lateinit var nameTextField: TextField
+    private lateinit var studentStateController: StudentStateController
+    private lateinit var idInstitute: String
+    private lateinit var courseName: String
 
-    var closeButton: Button? = null
-    var nameTextField: TextField? = null
-    private var studentStateController: StudentStateController? = null
-    private var idInstitute: String? = null
-    private var courseName: String? = null
-
+    @Throws(SQLException::class)
     fun initData(studentStateController: StudentStateController, instituteName: String, courseName: String) {
-
         this.studentStateController = studentStateController
         this.courseName = courseName
-        try {
-            idInstitute =
-                QueryResult.getListResult("SELECT id FROM institute WHERE short_name = '$instituteName'", false).get(0)
-                    .toString()
-        } catch (e: SQLException) {
-            e.printStackTrace()
-        }
-
+        idInstitute = QueryResult.getListResult("SELECT id FROM institute WHERE short_name = '$instituteName'", false)[0].toString()
     }
 
     @Throws(SQLException::class)
     fun addGroupQuery() {
-        val name = Parser.processQuote(nameTextField!!.text)
+        val name = Parser.processQuote(nameTextField.text)
         val query = "INSERT INTO `group` (name, id_institute, course) VALUES ('$name', '$idInstitute', '$courseName')"
         QueryResult.updateDataBase(query)
-        nameTextField!!.clear()
-        studentStateController!!.setGroupComboBox()
-
+        nameTextField.clear()
+        studentStateController.setGroupComboBox()
     }
 
     fun cancel() {
-        val stage = closeButton!!.scene.window as Stage
+        val stage = closeButton.scene.window as Stage
         stage.close()
     }
-
-
 }

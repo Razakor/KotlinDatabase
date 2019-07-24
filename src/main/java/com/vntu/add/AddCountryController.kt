@@ -9,10 +9,9 @@ import javafx.stage.Stage
 import java.sql.SQLException
 
 class AddCountryController {
-
-    var closeButton: Button? = null
-    var nameTextField: TextField? = null
-    private var enterpriseStateController: EnterpriseStateController? = null
+    lateinit var closeButton: Button
+    lateinit var nameTextField: TextField
+    private lateinit var enterpriseStateController: EnterpriseStateController
 
     fun initData(enterpriseStateController: EnterpriseStateController) {
         this.enterpriseStateController = enterpriseStateController
@@ -20,16 +19,16 @@ class AddCountryController {
 
     @Throws(SQLException::class)
     fun addCountryQuery() {
-        val name = Parser.processQuote(nameTextField!!.text)
+        val name = Parser.processQuote(nameTextField.text)
         val query = "INSERT INTO country(name)\n" +
-                "VALUES ('" + name + "')"
+                "VALUES ('$name')"
         QueryResult.updateDataBase(query)
-        nameTextField!!.clear()
-        enterpriseStateController!!.setCountryComboBox()
+        nameTextField.clear()
+        enterpriseStateController.setCountryComboBox()
     }
 
     fun cancel() {
-        val stage = closeButton!!.scene.window as Stage
+        val stage = closeButton.scene.window as Stage
         stage.close()
     }
 }

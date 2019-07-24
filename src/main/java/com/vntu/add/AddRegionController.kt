@@ -6,37 +6,32 @@ import com.vntu.main.QueryResult
 import javafx.scene.control.Button
 import javafx.scene.control.TextField
 import javafx.stage.Stage
-
 import java.sql.SQLException
 
 class AddRegionController {
-    var closeButton: Button? = null
-    var nameTextField: TextField? = null
-    private var enterpriseStateController: EnterpriseStateController? = null
-    private var idState: String? = null
-
+    lateinit var closeButton: Button
+    lateinit var nameTextField: TextField
+    private lateinit var enterpriseStateController: EnterpriseStateController
+    private lateinit var idState: String
 
     @Throws(SQLException::class)
     fun initData(enterpriseStateController: EnterpriseStateController, stateName: String) {
         this.enterpriseStateController = enterpriseStateController
-        idState = QueryResult.getListResult("SELECT id FROM state WHERE name = '$stateName'", false).get(0).toString()
-
+        idState = QueryResult.getListResult("SELECT id FROM state WHERE name = '$stateName'", false)[0].toString()
     }
 
     @Throws(SQLException::class)
     fun addRegionQuery() {
-
-        val name = Parser.processQuote(nameTextField!!.text)
-
+        val name = Parser.processQuote(nameTextField.text)
         val query = "INSERT INTO region(name, id_state)\n" +
-                "VALUES ('" + name + "', '" + idState + "')"
+                "VALUES ('$name', '$idState')"
         QueryResult.updateDataBase(query)
-        nameTextField!!.clear()
-        enterpriseStateController!!.setRegionComboBox()
+        nameTextField.clear()
+        enterpriseStateController.setRegionComboBox()
     }
 
     fun cancel() {
-        val stage = closeButton!!.scene.window as Stage
+        val stage = closeButton.scene.window as Stage
         stage.close()
     }
 }

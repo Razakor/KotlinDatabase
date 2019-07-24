@@ -33,6 +33,4 @@ class AddVntuDepController {
         val stage = closeButton.scene.window as Stage
         stage.close()
     }
-
-
 }

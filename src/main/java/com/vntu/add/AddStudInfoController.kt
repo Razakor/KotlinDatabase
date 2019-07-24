@@ -25,22 +25,13 @@ class AddStudInfoController {
     private lateinit var studentStateController: StudentStateController
 
     @Throws(SQLException::class)
-    fun initData(
-        studentStateController: StudentStateController,
-        course: String,
-        instituteName: String,
-        groupName: String
-    ) {
+    fun initData(studentStateController: StudentStateController, course: String, instituteName: String, groupName: String) {
         this.studentStateController = studentStateController
         this.idCourse = course
-        this.idInstitute =
-            QueryResult.getListResult("SELECT id FROM institute WHERE short_name = '$instituteName'", false)[0]
-                .toString()
-        this.idGroup =
-            QueryResult.getListResult("SELECT id FROM `group` WHERE name = '$groupName'", false)[0].toString()
+        this.idInstitute = QueryResult.getListResult("SELECT id FROM institute WHERE short_name = '$instituteName'", false)[0].toString()
+        this.idGroup = QueryResult.getListResult("SELECT id FROM `group` WHERE name = '$groupName'", false)[0].toString()
         setSpecialityComboBox()
         setStudyFormComboBox()
-
     }
 
     @Throws(SQLException::class)
@@ -64,20 +55,18 @@ class AddStudInfoController {
         val razr = Parser.processQuote(razrTextField.text)
         val addition = Parser.processQuote(additionTextField.text)
         val idSpeciality = QueryResult.getListResult(
-            "SELECT id FROM speciality WHERE name = '" + Parser.processQuote(specialityComboBox.value.toString()) + "'",
+            "SELECT id FROM speciality WHERE name = '${Parser.processQuote(specialityComboBox.value.toString())}'",
             false
         )[0].toString()
         val idStudyForm = QueryResult.getListResult(
-            "SELECT id FROM study_form WHERE name = '" + Parser.processQuote(studyFormComboBox.value.toString()) + "'",
+            "SELECT id FROM study_form WHERE name = '${Parser.processQuote(studyFormComboBox.value.toString())}'",
             false
         )[0].toString()
-        val query =
-            "INSERT INTO student (surname, name, id_institute, id_group, id_speciality, id_study_form, addition, id_course, razr)" +
+        val query = "INSERT INTO student (surname, name, id_institute, id_group, id_speciality, id_study_form, addition, id_course, razr)" +
                     "VALUES ('$surname', '$name', '$idInstitute', '$idGroup', '$idSpeciality', '$idStudyForm', '$addition', '$idCourse', '$razr')"
         QueryResult.updateDataBase(query)
         clear()
         studentStateController.setGroup()
-
     }
 
     fun cancel() {
@@ -92,6 +81,5 @@ class AddStudInfoController {
         additionTextField.clear()
         specialityComboBox.value = null
         studyFormComboBox.value = null
-
     }
 }

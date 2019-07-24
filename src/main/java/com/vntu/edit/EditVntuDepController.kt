@@ -9,7 +9,6 @@ import javafx.stage.Stage
 import java.sql.SQLException
 
 class EditVntuDepController {
-
     lateinit var textField: TextField
     lateinit var closeButton: Button
     private lateinit var resultTable: TableView<ObservableList<String>>
