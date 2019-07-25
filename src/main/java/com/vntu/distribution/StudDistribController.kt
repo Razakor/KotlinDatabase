@@ -5,7 +5,6 @@ import com.vntu.main.Parser
 import com.vntu.main.QueryResult
 import javafx.collections.ObservableList
 import javafx.scene.control.*
-
 import java.sql.Date
 import java.sql.SQLException
 
@@ -26,6 +25,8 @@ class StudDistribController {
     lateinit var changeButton: Button
     lateinit var contractNumberTextField: TextField
     lateinit var datePicker: DatePicker
+    lateinit var nameLabel: Label
+    lateinit var enterpriseLabel: Label
 
     private lateinit var VNTUList: ObservableList<String>
     private val CHOOSE_ALL = "Всі"
@@ -47,6 +48,7 @@ class StudDistribController {
     private var localRegionValue = "IS NOT NULL"
     private var localCityValue = "IS NOT NULL"
     private var isVNTU = false
+    private var isDistibuted: Boolean = false
 
     @Throws(SQLException::class)
     fun initialize() {
@@ -101,7 +103,7 @@ class StudDistribController {
                 "INNER JOIN `group`\n" +
                 "ON student.id_group = `group`.id\n" +
                 "WHERE student.id_course " + localCourseValue + " AND institute.short_name " + localInstituteValue
-        groupComboBox.setItems(QueryResult.getListResult(query, true))
+        groupComboBox.items = QueryResult.getListResult(query, true)
         ComboBoxAutoComplete(groupComboBox)
     }
 
@@ -116,8 +118,7 @@ class StudDistribController {
             if (studentsValue == CHOOSE_ALL) "IS NOT NULL" else "= '" + studentsValue.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
 
         val query =
-            "SELECT DISTINCT (student.surname || ' ' || student.name) AS student_fullname  FROM student\n" + // TODO: Test if this works, was rewritten with || instead of CONCAT
-
+            "SELECT DISTINCT (student.surname || ' ' || student.name) AS student_fullname  FROM student\n" +
                     "INNER JOIN institute\n" +
                     "ON student.id_institute = institute.id\n" +
                     "INNER JOIN `group`\n" +
@@ -259,13 +260,38 @@ class StudDistribController {
             val surname = Parser.processQuote(studentName[0])
             val name = Parser.processQuote(studentName[1] + " " + studentName[2])
 
-            localStudentsSurnameValue = if (studentsValue == CHOOSE_ALL) "IS NOT NULL" else "= '$surname'"
-            localStudentsNameValue = if (studentsValue == CHOOSE_ALL) "IS NOT NULL" else "= '$name'"
+            var query = "SELECT COALESCE (enterprise.name, vntu.name) FROM distribution\n" +
+                    "LEFT JOIN enterprise ON distribution.id_enterprise = enterprise.id\n" +
+                    "LEFT JOIN vntu ON distribution.id_vntu = vntu.id\n" +
+                    "LEFT JOIN student ON distribution.id_student = student.id\n" +
+                    "WHERE student.name = '$name' AND student.surname = '$surname'"
 
-            val query = "SELECT speciality.name FROM speciality\n" +
-                    "INNER JOIN student ON student.id_speciality = speciality.id\n" +
-                    "WHERE student.surname " + localStudentsSurnameValue + " AND student.name " + localStudentsNameValue
-            specialityComboBox.value = QueryResult.getListResult(query, false).get(0).toString()
+            val resultList = QueryResult.getListResult(query, false)
+
+            if (!resultList.isEmpty()) {
+                nameLabel.text = "$surname $name розподілений в:"
+                enterpriseLabel.text = resultList[0].toString()
+                isDistibuted = true
+
+                localStudentsSurnameValue = if (studentsValue == CHOOSE_ALL) "IS NOT NULL" else "= '$surname'"
+                localStudentsNameValue = if (studentsValue == CHOOSE_ALL) "IS NOT NULL" else "= '$name'"
+
+                query =
+                    "SELECT speciality.name FROM distribution\n" +
+                            "INNER JOIN speciality ON distribution.id_speciality = speciality.id\n" +
+                            "INNER JOIN student ON distribution.id_student = student.id\n" +
+                            "WHERE student.surname $localStudentsSurnameValue AND student.name $localStudentsNameValue"
+
+                specialityComboBox.value = QueryResult.getListResult(query, false)[0].toString()
+            } else {
+                nameLabel.text = "$surname $name нікуди не розподілений"
+                enterpriseLabel.text = ""
+                isDistibuted = false
+                query = "SELECT speciality.name FROM speciality\n" +
+                        "INNER JOIN student ON student.id_speciality = speciality.id\n" +
+                        "WHERE student.surname " + localStudentsSurnameValue + " AND student.name " + localStudentsNameValue
+                specialityComboBox.value = QueryResult.getListResult(query, false)[0].toString()
+            }
         }
     }
 
@@ -366,28 +392,28 @@ class StudDistribController {
         ) {
 
             idCity = QueryResult.getListResult(
-                "SELECT id FROM city WHERE name = '" + Parser.processQuote(cityComboBox.value) + "'",
+                "SELECT id FROM city WHERE name = '${Parser.processQuote(cityComboBox.value)}'",
                 false
             )[0].toString()
             idInstitute = QueryResult.getListResult(
-                "SELECT id FROM institute WHERE short_name = '" + instituteComboBox.value + "'",
+                "SELECT id FROM institute WHERE short_name = '${instituteComboBox.value}'",
                 false
             )[0].toString()
             idGroup =
-                QueryResult.getListResult("SELECT id FROM `group` WHERE name = '" + groupComboBox.value + "'", false)[0].toString()
+                QueryResult.getListResult("SELECT id FROM `group` WHERE name = '${groupComboBox.value}'", false)[0].toString()
             idSpeciality = QueryResult.getListResult(
-                "SELECT id FROM speciality WHERE name = '" + Parser.processQuote(specialityComboBox.value) + "'",
+                "SELECT id FROM speciality WHERE name = '${Parser.processQuote(specialityComboBox.value)}'",
                 false
             )[0].toString()
 
             if (!isVNTU) {
                 idEnterprise = QueryResult.getListResult(
-                    "SELECT id FROM enterprise WHERE name = '" + Parser.processQuote(enterpriseComboBox.value) + "'",
+                    "SELECT id FROM enterprise WHERE name = '${Parser.processQuote(enterpriseComboBox.value)}'",
                     false
                 )[0].toString()
             } else {
                 idVNTU = QueryResult.getListResult(
-                    "SELECT id FROM vntu WHERE name = '" + Parser.processQuote(enterpriseComboBox.value) + "'", false
+                    "SELECT id FROM vntu WHERE name = '${Parser.processQuote(enterpriseComboBox.value)}'", false
                 )[0].toString()
             }
 
@@ -406,14 +432,48 @@ class StudDistribController {
             val localDate = datePicker.value
             date = Date.valueOf(localDate)
 
-            query = if (!isVNTU) {
-                "INSERT INTO distribution (id_contract, id_city, id_enterprise, id_institute, id_group, id_student, id_speciality, contract_type, date) \n" +
-                        "VALUES ('$idContract', '$idCity', '$idEnterprise', '$idInstitute', '$idGroup', '$idStudent', '$idSpeciality', '$documentType', '$date')"
+            if (!isDistibuted) {
+                query = if (!isVNTU) {
+                    "INSERT INTO distribution (id_contract, id_city, id_enterprise, id_institute, id_group, id_student, id_speciality, contract_type, date) \n" +
+                            "VALUES ('$idContract', '$idCity', '$idEnterprise', '$idInstitute', '$idGroup', '$idStudent', '$idSpeciality', '$documentType', '$date')"
+                } else {
+                    "INSERT INTO distribution (id_contract, id_institute, id_group, id_student, id_speciality, id_vntu, contract_type, date) \n" +
+                            "VALUES ('$idContract', '$idInstitute', '$idGroup', '$idStudent', '$idSpeciality', '$idVNTU', '$documentType', '$date')"
+                }
+                QueryResult.updateDataBase(query)
             } else {
-                "INSERT INTO distribution (id_contract, id_institute, id_group, id_student, id_speciality, id_vntu, contract_type, date) \n" +
-                        "VALUES ('$idContract', '$idInstitute', '$idGroup', '$idStudent', '$idSpeciality', '$idVNTU', '$documentType', '$date')"
+                val alert = Alert(Alert.AlertType.CONFIRMATION)
+                alert.title = "Перерозполід студента"
+                alert.headerText = "Перерозподілити даного студента на нове місце?"
+                val result = alert.showAndWait()
+                if (result.get() == ButtonType.OK) {
+                    query = if (!isVNTU) {
+                        "UPDATE distribution\n" +
+                                "SET id_contract = '$idContract', " +
+                                "id_city = '$idCity', " +
+                                "id_enterprise = '$idEnterprise', " +
+                                "id_institute = '$idInstitute', " +
+                                "id_group = '$idGroup', " +
+                                "id_speciality = '$idSpeciality', " +
+                                "contract_type = '$documentType', " +
+                                "date = '$date'\n" +
+                                "WHERE id_student = '$idStudent'"
+                    } else {
+                        "UPDATE distribution\n" +
+                                "SET id_contract = '$idContract', " +
+                                "id_city = '$idCity', " +
+                                "id_vntu = '$idVNTU', " +
+                                "id_institute = '$idInstitute', " +
+                                "id_group = '$idGroup', " +
+                                "id_speciality = '$idSpeciality', " +
+                                "contract_type = '$documentType', " +
+                                "date = '$date'\n" +
+                                "WHERE id_student = '$idStudent'"
+                    }
+                    QueryResult.updateDataBase(query)
+                }
             }
-            QueryResult.updateDataBase(query)
+
         } else {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка розподілу"
