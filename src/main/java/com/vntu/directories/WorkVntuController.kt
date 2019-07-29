@@ -22,7 +22,7 @@ class WorkVntuController {
 
     lateinit var resultTable: TableView<ObservableList<String>>
     private val window = OpenNewWindow()
-    private lateinit var name: String
+    private var name: String? = null
 
 
     @Throws(SQLException::class)
@@ -38,7 +38,15 @@ class WorkVntuController {
 
     @Throws(IOException::class)
     fun editVntuDep() {
-        name = Parser.processBrackets(name)
+        if (name == null) {
+            val alert = Alert(Alert.AlertType.ERROR)
+            alert.title = "Помилка редагування"
+            alert.headerText = "Оберіть підрозділ"
+            alert.showAndWait()
+            return
+        }
+
+        name = Parser.processBrackets(name!!)
         val fxmlLoader =
             FXMLLoader(Objects.requireNonNull(javaClass.classLoader.getResource("fxml/edit_vntu_dep.fxml")))
         val root = fxmlLoader.load<Parent>()
@@ -47,7 +55,7 @@ class WorkVntuController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditVntuDepController>()
-        controller.initData(resultTable, name)
+        controller.initData(resultTable, name!!)
         stage.show()
     }
 
@@ -67,7 +75,15 @@ class WorkVntuController {
 
     @Throws(SQLException::class)
     fun deleteDep() {
-        name = name.substring(1, name.length - 1)
+        if (name == null) {
+            val alert = Alert(Alert.AlertType.ERROR)
+            alert.title = "Помилка видалення"
+            alert.headerText = "Оберіть підрозділ"
+            alert.showAndWait()
+            return
+        }
+
+        name = name!!.substring(1, name!!.length - 1)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення запису"
         alert.headerText = "Видалити \"$name\"?"

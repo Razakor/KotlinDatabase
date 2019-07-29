@@ -20,7 +20,7 @@ import java.util.*
 class WorkStudStateController {
 
     lateinit var resultTable: TableView<ObservableList<String>>
-    private lateinit var name: String
+    private var name: String? = null
 
     @Throws(SQLException::class)
     fun initialize() {
@@ -35,18 +35,25 @@ class WorkStudStateController {
 
     @Throws(IOException::class)
     fun editSpec() {
+        if (name == null) {
+            val alert = Alert(Alert.AlertType.ERROR)
+            alert.title = "Помилка редагування"
+            alert.headerText = "Оберіть спеціальність"
+            alert.showAndWait()
+            return
+        }
 
-        name = Parser.processBrackets(name)
+            name = Parser.processBrackets(name!!)
+            val fxmlLoader = FXMLLoader(Objects.requireNonNull(javaClass.classLoader.getResource("fxml/edit_spec.fxml")))
+            val root = fxmlLoader.load<Parent>()
+            val stage = Stage()
+            stage.title = "Зміна даних про спеціальності"
+            stage.scene = Scene(root)
+            stage.icons.add(Image("pictures/ico.jpg"))
+            val controller = fxmlLoader.getController<EditSpecController>()
+            controller.initData(resultTable, name!!)
+            stage.show()
 
-        val fxmlLoader = FXMLLoader(Objects.requireNonNull(javaClass.classLoader.getResource("fxml/edit_spec.fxml")))
-        val root = fxmlLoader.load<Parent>()
-        val stage = Stage()
-        stage.title = "Зміна даних про спеціальності"
-        stage.scene = Scene(root)
-        stage.icons.add(Image("pictures/ico.jpg"))
-        val controller = fxmlLoader.getController<EditSpecController>()
-        controller.initData(resultTable, name)
-        stage.show()
     }
 
     @Throws(IOException::class)
@@ -64,7 +71,14 @@ class WorkStudStateController {
 
     @Throws(SQLException::class)
     fun deleteSpec() {
-        name = name.substring(1, name.length - 1)
+        if (name == null) {
+            val alert = Alert(Alert.AlertType.ERROR)
+            alert.title = "Помилка видалення"
+            alert.headerText = "Оберіть спеціальність"
+            alert.showAndWait()
+            return
+        }
+        name = name!!.substring(1, name!!.length - 1)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення запису"
         alert.headerText = "Видалити \"$name\"?"
