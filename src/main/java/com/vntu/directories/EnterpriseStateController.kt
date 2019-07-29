@@ -11,6 +11,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.*
+import javafx.scene.image.Image
 import java.io.IOException
 import java.sql.SQLException
 import java.util.*
@@ -196,6 +197,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Додання нової країни"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddCountryController>()
         controller.initData(this)
         stage.show()
@@ -216,6 +218,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Зміна даних про країну"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditCountryController>()
         controller.initData(this, setCountryComboBox.value)
         stage.show()
@@ -258,6 +261,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Додання нової області"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddStateController>()
         controller.initData(this, setCountryComboBox.value)
         stage.show()
@@ -278,6 +282,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Зміна даних про область"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditStateController>()
         controller.initData(this, setStateComboBox.value)
         stage.show()
@@ -318,6 +323,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Додання нового району"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddRegionController>()
         controller.initData(this, setStateComboBox.value)
         stage.show()
@@ -337,6 +343,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Зміна даних про район"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditRegionController>()
         controller.initData(this, setRegionComboBox.value)
         stage.show()
@@ -377,6 +384,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Додання нового міста"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddCityController>()
         controller.initData(this, setRegionComboBox.value)
         stage.show()
@@ -397,6 +405,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Зміна даних про місто"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditEnterpriseController>()
         controller.initData(this, setCityComboBox.value)
         stage.show()
@@ -438,6 +447,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Додавання інформації про підприємства"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddEnterpriseController>()
         controller.initData(this, setCityComboBox.value)
 
@@ -458,6 +468,7 @@ class EnterpriseStateController {
         val stage = Stage()
         stage.title = "Редагування підприємства"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditEnterpriseController>()
         controller.initData(this, selectedRow!!)
         stage.show()

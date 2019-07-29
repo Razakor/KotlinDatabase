@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Label
+import javafx.scene.image.Image
 import javafx.stage.Stage
 import java.io.IOException
 import java.sql.Date
@@ -45,6 +46,7 @@ class MainFormController {
         stage.title = "Довідник студентів"
         stage.scene = Scene(root)
         stage.isMaximized = true
+        stage.icons.add(Image("pictures/ico.jpg"))
         stage.show()
     }
 
@@ -57,6 +59,7 @@ class MainFormController {
         stage.title = "Довідник підприємств"
         stage.scene = Scene(root)
         stage.isMaximized = true
+        stage.icons.add(Image("pictures/ico.jpg"))
         stage.show()
 
     }
@@ -83,6 +86,7 @@ class MainFormController {
         val stage = Stage()
         stage.title = "Друк направлень"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<ReferralController>()
         controller.initData(stage)
         stage.show()
@@ -110,6 +114,7 @@ class MainFormController {
         val stage = Stage()
         stage.title = "Підготовка до літнього триместру"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<StartSController>()
         controller.initData(bachelorLabel, msLabel)
         stage.show()

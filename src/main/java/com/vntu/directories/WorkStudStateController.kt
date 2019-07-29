@@ -11,6 +11,7 @@ import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.control.TableView
+import javafx.scene.image.Image
 import javafx.stage.Stage
 import java.io.IOException
 import java.sql.SQLException
@@ -42,6 +43,7 @@ class WorkStudStateController {
         val stage = Stage()
         stage.title = "Зміна даних про спеціальності"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditSpecController>()
         controller.initData(resultTable, name)
         stage.show()
@@ -54,6 +56,7 @@ class WorkStudStateController {
         val stage = Stage()
         stage.title = "Додання нових спеціальностей"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddSpecController>()
         controller.initData(resultTable)
         stage.show()

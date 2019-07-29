@@ -12,6 +12,7 @@ import javafx.scene.Scene
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
 import javafx.scene.control.TableView
+import javafx.scene.image.Image
 import javafx.stage.Stage
 import java.io.IOException
 import java.sql.SQLException
@@ -44,6 +45,7 @@ class WorkVntuController {
         val stage = Stage()
         stage.title = "Редагування підрозділів ВНТУ"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditVntuDepController>()
         controller.initData(resultTable, name)
         stage.show()
@@ -57,6 +59,7 @@ class WorkVntuController {
         val stage = Stage()
         stage.title = "Додання підрозділів ВНТУ"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddVntuDepController>()
         controller.initData(resultTable)
         stage.show()

@@ -3,6 +3,7 @@ package com.vntu.main
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
+import javafx.scene.image.Image
 import javafx.stage.Stage
 import java.io.IOException
 import java.util.Objects
@@ -16,6 +17,7 @@ class OpenNewWindow {
         val stage = Stage()
         stage.title = windowName
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         stage.show()
     }
 

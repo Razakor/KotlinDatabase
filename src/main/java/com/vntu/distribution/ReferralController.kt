@@ -21,7 +21,7 @@ class ReferralController {
 
     lateinit var instituteComboBox: ComboBox<String>
     lateinit var groupComboBox: ComboBox<String>
-    private var stage: Stage? = null
+    private lateinit var stage: Stage
     private val CHOOSE_ALL = "Всі"
     private val filePaths = ArrayList<String>()
     private val directoryPath = ""

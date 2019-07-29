@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.*
+import javafx.scene.image.Image
 import javafx.stage.FileChooser
 import javafx.stage.Stage
 import java.io.IOException
@@ -157,6 +158,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Редагування факультету"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditInstController>()
         controller.initData(this)
         stage.show()
@@ -169,6 +171,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Додавання факультетів"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddInstController>()
         controller.initData(this)
         stage.show()
@@ -188,6 +191,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Редагування групи"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditGroupController>()
         controller.initData(this, groupComboBox.value)
         stage.show()
@@ -207,6 +211,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Додавання груп"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddGroupController>()
         controller.initData(this, instituteComboBox.value, courseComboBox.value)
         stage.show()
@@ -226,6 +231,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Редагування студента"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditStudInfoController>()
         controller.initData(this, selectedRow!!)
         stage.show()
@@ -245,6 +251,7 @@ class StudentStateController {
         val stage = Stage()
         stage.title = "Додавання інформації про студентів"
         stage.scene = Scene(root)
+        stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddStudInfoController>()
         controller.initData(this, courseComboBox.value, instituteComboBox.value, groupComboBox.value)
         stage.show()
