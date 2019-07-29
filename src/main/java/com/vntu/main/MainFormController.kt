@@ -6,25 +6,34 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Label
-import javafx.scene.control.MenuItem
 import javafx.stage.Stage
 import java.io.IOException
+import java.sql.Date
 import java.sql.SQLException
 import java.util.Objects
+import java.time.format.DateTimeFormatter
 
 class MainFormController {
-    lateinit var firstLabel: Label
-    lateinit var secondLabel: Label
+    lateinit var titleLabel: Label
+    lateinit var bachelorLabel: Label
+    lateinit var msLabel: Label
     private val window = OpenNewWindow()
 
     @Throws(SQLException::class)
     fun initialize() {
-        val query = "SELECT start, end FROM timings"
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+        var query = "SELECT start, end FROM timings"
         val dateList = QueryResult.getListResult(query, false)
-        val startDate = dateList[0].toString()
-        val endDate = dateList[1].toString()
-        firstLabel.text = "Робочий триместр проходитимуть студенти 3-го курсу"
-        secondLabel.text = "Робота на виробництві починається: $startDate, закінчується: $endDate."
+        val startDate = Date.valueOf(dateList[0]).toLocalDate().format(formatter).toString()
+        val endDate = Date.valueOf(dateList[1]).toLocalDate().format(formatter).toString()
+        titleLabel.text = "Робочий триместр проходитимуть студенти 3-го курсу та молодші спеціалісти."
+        bachelorLabel.text = "Робота на виробництві в бакалаврів починається: $startDate, закінчується: $endDate."
+
+        query = "SELECT start, end FROM timings_ms"
+        val msDateList = QueryResult.getListResult(query, false)
+        val msStartDate = Date.valueOf(msDateList[0]).toLocalDate().format(formatter).toString()
+        val msEndDate = Date.valueOf(msDateList[1]).toLocalDate().format(formatter).toString()
+        msLabel.text = "Робота на виробництві в молодших спеціалістів починається: $msStartDate, закінчується: $msEndDate."
     }
 
     @Throws(IOException::class)
@@ -102,7 +111,7 @@ class MainFormController {
         stage.title = "Підготовка до літнього триместру"
         stage.scene = Scene(root)
         val controller = fxmlLoader.getController<StartSController>()
-        controller.initData(secondLabel)
+        controller.initData(bachelorLabel, msLabel)
         stage.show()
     }
 

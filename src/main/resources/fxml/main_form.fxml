@@ -1,16 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.main.MainFormController">
    <children>
@@ -20,49 +12,54 @@
              <menus>
                <Menu mnemonicParsing="false" text="Довідники">
                  <items>
-                   <MenuItem fx:id="directories_students" mnemonicParsing="false" onAction="#openStudentState" text="Студентів" />
-                   <MenuItem fx:id="directories_enterprises" mnemonicParsing="false" onAction="#openEnterpriseState" text="Підприємств" />
-                   <MenuItem fx:id="directories_specialities" mnemonicParsing="false" onAction="#openWorkStudState" text="Спеціальностей" />
-                   <MenuItem fx:id="directories_departments" mnemonicParsing="false" onAction="#openWorkVntu" text="Підрозділів ВНТУ" />
+                   <MenuItem mnemonicParsing="false" onAction="#openStudentState" text="Студентів" />
+                   <MenuItem mnemonicParsing="false" onAction="#openEnterpriseState" text="Підприємств" />
+                   <MenuItem mnemonicParsing="false" onAction="#openWorkStudState" text="Спеціальностей" />
+                   <MenuItem mnemonicParsing="false" onAction="#openWorkVntu" text="Підрозділів ВНТУ" />
                  </items>
                </Menu>
                <Menu mnemonicParsing="false" text="Розподіл на р/т">
                  <items>
-                   <MenuItem fx:id="distribution_students" mnemonicParsing="false" onAction="#openStudDistrib" text="Розподіл" />
-                   <MenuItem fx:id="distribution_referral" mnemonicParsing="false" onAction="#openReferral" text="Друк направлень" />
+                   <MenuItem mnemonicParsing="false" onAction="#openStudDistrib" text="Розподіл" />
+                   <MenuItem mnemonicParsing="false" onAction="#openReferral" text="Друк направлень" />
                  </items>
                </Menu>
                <Menu mnemonicParsing="false" text="Звітна інформація">
                  <items>
-                   <MenuItem fx:id="report_statistics" mnemonicParsing="false" onAction="#openStatistics" text="Загальна довідка" />
-                   <MenuItem fx:id="report_stateOfAffairs" mnemonicParsing="false" onAction="#openStateOfAffairs" text="Стандартні довідки" />
+                   <MenuItem mnemonicParsing="false" onAction="#openStatistics" text="Загальна довідка" />
+                   <MenuItem mnemonicParsing="false" onAction="#openStateOfAffairs" text="Стандартні довідки" />
                  </items>
                </Menu>
                <Menu mnemonicParsing="false" text="Перевірка студентів">
                  <items>
-                   <MenuItem fx:id="check_moreThanTwoStud" mnemonicParsing="false" onAction="#openMoreThanTwoStud" text="&quot;2 та більше&quot;" />
+                   <MenuItem mnemonicParsing="false" onAction="#openMoreThanTwoStud" text="&quot;2 та більше&quot;" />
                  </items>
                </Menu>
                <Menu mnemonicParsing="false" text="Підготовка до нового р/т">
                  <items>
-                   <MenuItem fx:id="preparation_startS" mnemonicParsing="false" onAction="#openStartS" text="Літнього" />
+                   <MenuItem mnemonicParsing="false" onAction="#openStartS" text="Літнього" />
                  </items>
                </Menu>
              </menus>
            </MenuBar>
-            <Label fx:id="firstLabel" prefHeight="37.0" prefWidth="600.0">
+            <Label fx:id="titleLabel" prefWidth="600.0">
                <padding>
                  <Insets left="20.0" right="20.0" top="20.0" />
 
                </padding>
             </Label>
-            <Label fx:id="secondLabel" prefWidth="600.0">
+            <Label fx:id="bachelorLabel" prefWidth="600.0">
                <padding>
                   <Insets left="20.0" right="20.0" top="20.0" />
                </padding>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+            </Label>
+            <Label fx:id="msLabel" prefWidth="600.0">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" top="20.0" />
+               </padding>
             </Label>
          </children></VBox>
    </children>

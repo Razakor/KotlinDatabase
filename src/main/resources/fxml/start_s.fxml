@@ -3,14 +3,18 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.preparation.StartSController">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="160.0" prefWidth="540.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vntu.preparation.StartSController">
    <children>
-      <Label layoutX="100.0" layoutY="64.0" text="Кінець:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="63.0" />
-      <Label layoutX="117.0" layoutY="23.0" text="Початок:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="23.0" />
-      <DatePicker fx:id="startDatePicker" layoutX="166.0" layoutY="20.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0" />
-      <DatePicker fx:id="endDatePicker" layoutX="166.0" layoutY="69.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="60.0" />
-      <Button layoutX="128.0" layoutY="117.0" mnemonicParsing="false" onAction="#save" text="Зберегти" AnchorPane.leftAnchor="260.0" AnchorPane.topAnchor="60.0" />
-      <Button layoutX="225.0" layoutY="142.0" mnemonicParsing="false" onAction="#deleteAllStudents" text="Видалити всіх студентів" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0" />
-      <Button layoutX="165.0" layoutY="150.0" mnemonicParsing="false" onAction="#nextCourse" text="Перехід на наступний курс" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0" />
+      <Label layoutX="79.0" layoutY="14.0" text="Бакалаври" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="270.0" layoutY="14.0" text="Молодші спеціалісти" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="20.0" />
+      <Label layoutX="100.0" layoutY="64.0" text="Кінець:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="83.0" />
+      <Label layoutX="117.0" layoutY="23.0" text="Початок:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="43.0" />
+      <DatePicker fx:id="startDatePicker" layoutX="166.0" layoutY="20.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="40.0" />
+      <DatePicker fx:id="endDatePicker" layoutX="166.0" layoutY="69.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0" />
+      <DatePicker fx:id="msStartDatePicker" layoutX="273.0" layoutY="20.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="40.0" />
+      <DatePicker fx:id="msEndDatePicker" layoutX="273.0" layoutY="60.0" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="80.0" />
+      <Button layoutX="128.0" layoutY="117.0" mnemonicParsing="false" onAction="#save" text="Зберегти" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0" />
+      <Button layoutX="225.0" layoutY="142.0" mnemonicParsing="false" onAction="#deleteAllStudents" text="Видалити всіх студентів" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="120.0" />
+      <Button layoutX="165.0" layoutY="150.0" mnemonicParsing="false" onAction="#nextCourse" text="Перехід на наступний курс" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0" />
    </children>
 </AnchorPane>

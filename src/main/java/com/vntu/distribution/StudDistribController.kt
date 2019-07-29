@@ -269,7 +269,7 @@ class StudDistribController {
             val resultList = QueryResult.getListResult(query, false)
 
             if (!resultList.isEmpty()) {
-                nameLabel.text = "$surname $name розподілений в:"
+                nameLabel.text = "${studentsComboBox.value} розподілений в:"
                 enterpriseLabel.text = resultList[0].toString()
                 isDistibuted = true
 
@@ -440,6 +440,9 @@ class StudDistribController {
                     "INSERT INTO distribution (id_contract, id_institute, id_group, id_student, id_speciality, id_vntu, contract_type, date) \n" +
                             "VALUES ('$idContract', '$idInstitute', '$idGroup', '$idStudent', '$idSpeciality', '$idVNTU', '$documentType', '$date')"
                 }
+                nameLabel.text = "${studentsComboBox.value} розподілений в:"
+                enterpriseLabel.text = enterpriseComboBox.value
+                isDistibuted = true
                 QueryResult.updateDataBase(query)
             } else {
                 val alert = Alert(Alert.AlertType.CONFIRMATION)
@@ -470,10 +473,11 @@ class StudDistribController {
                                 "date = '$date'\n" +
                                 "WHERE id_student = '$idStudent'"
                     }
+                    enterpriseLabel.text = enterpriseComboBox.value
+                    isDistibuted = true
                     QueryResult.updateDataBase(query)
                 }
             }
-
         } else {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка розподілу"
