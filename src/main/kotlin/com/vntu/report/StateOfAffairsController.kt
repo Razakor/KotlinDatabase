@@ -1,7 +1,7 @@
 package com.vntu.report
 
 import com.vntu.main.ComboBoxAutoComplete
-import com.vntu.main.DataBaseConnection.connection
+import com.vntu.database.connection
 import com.vntu.main.ExcelExport
 import com.vntu.main.Parser
 import com.vntu.main.QueryResult

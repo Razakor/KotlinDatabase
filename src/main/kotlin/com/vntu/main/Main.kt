@@ -1,5 +1,6 @@
 package com.vntu.main
 
+import com.vntu.database.DataBaseConnection
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent

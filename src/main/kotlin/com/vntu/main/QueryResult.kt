@@ -1,6 +1,6 @@
 package com.vntu.main
 
-import com.vntu.main.DataBaseConnection.connection
+import com.vntu.database.statement
 import javafx.beans.property.SimpleStringProperty
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
@@ -13,7 +13,6 @@ object QueryResult {
 
     @Throws(SQLException::class)
     fun updateDataBase(query: String) {
-        val statement = connection.createStatement()
         statement.executeUpdate(query)
         statement.close()
     }
@@ -21,7 +20,6 @@ object QueryResult {
     @Throws(SQLException::class)
     fun getListResult(query: String, withChooseAll: Boolean): ObservableList<String> {
         val strings = FXCollections.observableArrayList<String>()
-        val statement = connection.createStatement()
         val resultSet = statement.executeQuery(query)
 
         if (withChooseAll) strings.add(CHOOSE_ALL)
@@ -47,7 +45,6 @@ object QueryResult {
     fun getTableResult(resultTable: TableView<ObservableList<String>>, query: String): TableView<ObservableList<String>> {
 
         val rows: ObservableList<ObservableList<String>> = FXCollections.observableArrayList()
-        val statement = connection.createStatement()
         val resultSet = statement.executeQuery(query)
 
         for (i in 0 until resultSet.metaData.columnCount) {
@@ -80,7 +77,6 @@ object QueryResult {
     fun getTableAsList(query: String): ObservableList<ObservableList<String>> {
 
         val rows: ObservableList<ObservableList<String>> = FXCollections.observableArrayList()
-        val statement = connection.createStatement()
         val resultSet = statement.executeQuery(query)
 
         while (resultSet.next()) {
@@ -104,7 +100,6 @@ object QueryResult {
     @Throws(SQLException::class)
     fun getTable(resultTable: TableView<ObservableList<String>>, query: String): TableView<ObservableList<String>> {
 
-        val statement = connection.createStatement()
         val resultSet = statement.executeQuery(query)
 
         for (i in 0 until resultSet.metaData.columnCount) {

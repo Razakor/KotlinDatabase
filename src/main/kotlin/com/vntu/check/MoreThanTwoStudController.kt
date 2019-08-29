@@ -1,18 +1,15 @@
 package com.vntu.check
 
 import com.vntu.main.ComboBoxAutoComplete
-import com.vntu.main.DataBaseConnection.connection
+import com.vntu.database.connection
 import com.vntu.main.ExcelExport
 import com.vntu.main.Parser
 import com.vntu.main.QueryResult
-import javafx.event.ActionEvent
 import javafx.scene.control.ComboBox
 import javafx.scene.control.TextField
 
 import java.io.IOException
-import java.sql.ResultSet
 import java.sql.SQLException
-import java.sql.Statement
 import java.util.ArrayList
 
 class MoreThanTwoStudController {

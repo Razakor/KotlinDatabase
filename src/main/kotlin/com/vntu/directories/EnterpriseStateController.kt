@@ -3,7 +3,7 @@ package com.vntu.directories
 import com.vntu.add.*
 import com.vntu.edit.*
 import com.vntu.main.*
-import com.vntu.main.DataBaseConnection.connection
+import com.vntu.database.connection
 import javafx.collections.ObservableList
 import javafx.collections.transformation.FilteredList
 import javafx.collections.transformation.SortedList
