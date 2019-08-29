@@ -1,6 +1,6 @@
 package com.vntu.main
 
-import com.vntu.database.DataBaseConnection
+import com.vntu.database.*
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Parent
@@ -14,6 +14,8 @@ class Main : Application() {
     @Throws(Exception::class)
     override fun start(primaryStage: Stage) {
         DataBaseConnection.connectToDB()
+        initAllData()
+        print(countries)
         val root = FXMLLoader.load<Parent>(Objects.requireNonNull(javaClass.classLoader.getResource("fxml/main_form.fxml")))
         primaryStage.title = "СУБД \"Виробнича Практика\""
         primaryStage.scene = Scene(root, primaryStage.width, primaryStage.height)
