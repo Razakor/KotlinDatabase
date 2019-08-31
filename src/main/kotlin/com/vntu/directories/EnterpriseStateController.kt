@@ -4,6 +4,8 @@ import com.vntu.add.*
 import com.vntu.edit.*
 import com.vntu.main.*
 import com.vntu.database.connection
+import com.vntu.database.countries
+import javafx.collections.FXCollections
 import javafx.collections.ObservableList
 import javafx.collections.transformation.FilteredList
 import javafx.collections.transformation.SortedList
@@ -20,11 +22,16 @@ import javafx.stage.Stage
 class EnterpriseStateController {
 
     lateinit var resultTable: TableView<ObservableList<String>>
-    lateinit var setCountryComboBox: ComboBox<String>
-    lateinit var setStateComboBox: ComboBox<String>
-    lateinit var setRegionComboBox: ComboBox<String>
-    lateinit var setCityComboBox: ComboBox<String>
+    lateinit var countryComboBox: ComboBox<String>
+    lateinit var stateComboBox: ComboBox<String>
+    lateinit var regionComboBox: ComboBox<String>
+    lateinit var cityComboBox: ComboBox<String>
     lateinit var searchTextField: TextField
+
+    private var countryList: MutableList<String> = mutableListOf()
+    private var stateList: MutableList<String> = mutableListOf()
+    private var regionList: MutableList<String> = mutableListOf()
+    private var cityList: MutableList<String> = mutableListOf()
 
     private val CHOOSE_ALL = "Всі"
     private var countryValue = CHOOSE_ALL
@@ -68,10 +75,10 @@ class EnterpriseStateController {
 
         setTable(query, resultTable, searchTextField)
 
-        setCountryComboBox.selectionModel.selectFirst()
-        setStateComboBox.selectionModel.selectFirst()
-        setRegionComboBox.selectionModel.selectFirst()
-        setCityComboBox.selectionModel.selectFirst()
+        countryComboBox.selectionModel.selectFirst()
+        stateComboBox.selectionModel.selectFirst()
+        regionComboBox.selectionModel.selectFirst()
+        cityComboBox.selectionModel.selectFirst()
     }
 
     @Throws(SQLException::class)
@@ -100,31 +107,113 @@ class EnterpriseStateController {
 
     @Throws(SQLException::class)
     fun setCountryComboBox() {
+        /*
         val query = "SELECT DISTINCT name FROM country GROUP BY country.id"
-        setCountryComboBox.items = QueryResult.getListResult(query, true)
-        ComboBoxAutoComplete(setCountryComboBox)
+        countryComboBox.items = QueryResult.getListResult(query, true)
+        ComboBoxAutoComplete(countryComboBox)
+        */
+
+        countryList.add(CHOOSE_ALL)
+        countries.forEach { countryList.add(it.name) }
+
+        countryComboBox.items = FXCollections.observableArrayList(countryList)
+        ComboBoxAutoComplete(countryComboBox)
+        countryList.clear()
     }
 
     @Throws(SQLException::class)
     fun setStateComboBox() {
+/*
         localCountryValue = if (countryValue == CHOOSE_ALL) "IS NOT NULL" else "= '$countryValue'"
         val query = "SELECT DISTINCT state.name FROM state\n" +
                 "INNER JOIN country ON state.id_country = country.id\n" +
                 "WHERE country.name " + localCountryValue
-        setStateComboBox.items = QueryResult.getListResult(query, true)
-        ComboBoxAutoComplete(setStateComboBox)
+        stateComboBox.items = QueryResult.getListResult(query, true)
+        ComboBoxAutoComplete(stateComboBox)
+
+*/
+
+        stateList.add(CHOOSE_ALL)
+        if (countryValue == CHOOSE_ALL) {
+            countries.forEach {
+                it.states.forEach { state ->
+                    stateList.add(state.name)
+                }
+            }
+        } else {
+            countries.filter {
+                it.name == countryValue
+            }.forEach {
+                it.states.forEach { state ->
+                    stateList.add(state.name)
+                }
+            }
+        }
+
+        stateComboBox.items = FXCollections.observableArrayList(stateList)
+        ComboBoxAutoComplete(stateComboBox)
+        stateList.clear()
     }
 
     @Throws(SQLException::class)
     fun setRegionComboBox() {
+/*
         localStateValue = if (stateValue == CHOOSE_ALL) "IS NOT NULL" else "= '$stateValue'"
         localCountryValue = if (countryValue == CHOOSE_ALL) "IS NOT NULL" else "= '$countryValue'"
         val query = "SELECT region.name FROM region\n" +
                 "INNER JOIN state ON region.id_state = state.id\n" +
                 "INNER JOIN country ON state.id_country = country.id\n" +
                 "WHERE state.name " + localStateValue + " AND country.name " + localCountryValue
-        setRegionComboBox.items = QueryResult.getListResult(query, true)
-        ComboBoxAutoComplete(setRegionComboBox)
+        regionComboBox.items = QueryResult.getListResult(query, true)
+        ComboBoxAutoComplete(regionComboBox)
+
+*/
+
+        regionList.add(CHOOSE_ALL)
+        if (countryValue == CHOOSE_ALL && stateValue == CHOOSE_ALL) {
+            countries.forEach {
+                it.states.forEach { state ->
+                    state.regions.forEach { region ->
+                        regionList.add(region.name)
+                    }
+                }
+            }
+        } else if (countryValue != CHOOSE_ALL && stateValue == CHOOSE_ALL) {
+            countries.forEach {
+                it.states.filter { stateFilter ->
+                    stateFilter.name == stateValue
+                }.forEach { state ->
+                    state.regions.forEach { region ->
+                        regionList.add(region.name)
+                    }
+                }
+            }
+        } else if (countryValue == CHOOSE_ALL && stateValue != CHOOSE_ALL) {
+            countries.filter { countryFilter ->
+                countryFilter.name == countryValue
+            }.forEach {
+                it.states.forEach { state ->
+                    state.regions.forEach { region ->
+                        regionList.add(region.name)
+                    }
+                }
+            }
+        } else {
+            countries.filter { countryFilter ->
+                countryFilter.name == countryValue
+            }.forEach {
+                it.states.filter { stateFilter ->
+                    stateFilter.name == stateValue
+                }.forEach { state ->
+                    state.regions.forEach { region ->
+                        regionList.add(region.name)
+                    }
+                }
+            }
+        }
+        regionComboBox.items = FXCollections.observableArrayList(regionList)
+        ComboBoxAutoComplete(regionComboBox)
+        regionList.clear()
     }
 
     @Throws(SQLException::class)
@@ -137,43 +226,43 @@ class EnterpriseStateController {
                 "INNER JOIN state ON region.id_state = state.id\n" +
                 "INNER JOIN country ON state.id_country = country.id\n" +
                 "WHERE region.name " + localRegionValue + " AND state.name " + localStateValue + " AND country.name " + localCountryValue
-        setCityComboBox.items = QueryResult.getListResult(query, true)
-        ComboBoxAutoComplete(setCityComboBox)
+        cityComboBox.items = QueryResult.getListResult(query, true)
+        ComboBoxAutoComplete(cityComboBox)
     }
 
     @Throws(SQLException::class)
     fun setCountry() {
-        if (setCountryComboBox.value == null) {
-            setCountryComboBox.value = CHOOSE_ALL
+        if (countryComboBox.value == null) {
+            countryComboBox.value = CHOOSE_ALL
         }
-        countryValue = Parser.processQuote(setCountryComboBox.value)
+        countryValue = countryComboBox.value
         setStateComboBox()
     }
 
     @Throws(SQLException::class)
     fun setState() {
-        if (setStateComboBox.value == null) {
-            setStateComboBox.value = CHOOSE_ALL
+        if (stateComboBox.value == null) {
+            stateComboBox.value = CHOOSE_ALL
         }
-        stateValue = Parser.processQuote(setStateComboBox.value)
+        stateValue = stateComboBox.value
         setRegionComboBox()
     }
 
     @Throws(SQLException::class)
     fun setRegion() {
-        if (setRegionComboBox.value == null) {
-            setRegionComboBox.value = CHOOSE_ALL
+        if (regionComboBox.value == null) {
+            regionComboBox.value = CHOOSE_ALL
         }
-        regionValue = Parser.processQuote(setRegionComboBox.value)
+        regionValue = regionComboBox.value
         setCityComboBox()
     }
 
     @Throws(SQLException::class)
     fun setCity() {
-        if (setCityComboBox.value == null) {
-            setCityComboBox.value = CHOOSE_ALL
+        if (cityComboBox.value == null) {
+            cityComboBox.value = CHOOSE_ALL
         }
-        cityValue = Parser.processQuote(setCityComboBox.value)
+        cityValue = Parser.processQuote(cityComboBox.value)
         localCountryValue = if (countryValue == CHOOSE_ALL) "IS NOT NULL" else "= '$countryValue'"
         localStateValue = if (stateValue == CHOOSE_ALL) "IS NOT NULL" else "= '$stateValue'"
         localRegionValue = if (regionValue == CHOOSE_ALL) "IS NOT NULL" else "= '$regionValue'"
@@ -205,7 +294,7 @@ class EnterpriseStateController {
 
     @Throws(IOException::class)
     fun editCountry() {
-        if (setCountryComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка редагування країни"
             alert.headerText = "Оберіть країну для редагування"
@@ -220,20 +309,20 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditCountryController>()
-        controller.initData(this, setCountryComboBox.value)
+        controller.initData(this, countryComboBox.value)
         stage.show()
     }
 
     @Throws(SQLException::class)
     fun deleteCountry() {
-        if (setCountryComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка видалення країни"
             alert.headerText = "Оберіть країну для видалення"
             alert.showAndWait()
             return
         }
-        val name = Parser.processQuote(setCountryComboBox.value)
+        val name = Parser.processQuote(countryComboBox.value)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення країни"
         alert.headerText = "Видалити \"$name\"?"
@@ -247,7 +336,7 @@ class EnterpriseStateController {
 
     @Throws(IOException::class, SQLException::class)
     fun addState() {
-        if (setCountryComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка додавання області"
             alert.headerText = "Перевірте поля перед додаванням області"
@@ -263,13 +352,13 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddStateController>()
-        controller.initData(this, setCountryComboBox.value)
+        controller.initData(this, countryComboBox.value)
         stage.show()
     }
 
     @Throws(IOException::class)
     fun editState() {
-        if (setStateComboBox.value == CHOOSE_ALL) {
+        if (stateComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка редагування області"
             alert.headerText = "Оберіть область для редагування"
@@ -284,20 +373,20 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditStateController>()
-        controller.initData(this, setStateComboBox.value)
+        controller.initData(this, stateComboBox.value)
         stage.show()
     }
 
     @Throws(SQLException::class)
     fun deleteState() {
-        if (setStateComboBox.value == CHOOSE_ALL) {
+        if (stateComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка видалення області"
             alert.headerText = "Оберіть область для видалення"
             alert.showAndWait()
             return
         }
-        val name = Parser.processQuote(setStateComboBox.value)
+        val name = Parser.processQuote(stateComboBox.value)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення області"
         alert.headerText = "Видалити \"$name\"?"
@@ -311,7 +400,7 @@ class EnterpriseStateController {
 
     @Throws(IOException::class, SQLException::class)
     fun addRegion() {
-        if (setCountryComboBox.value == CHOOSE_ALL || setStateComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL || stateComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка додавання району"
             alert.headerText = "Перевірте поля перед додаванням району"
@@ -325,13 +414,13 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddRegionController>()
-        controller.initData(this, setStateComboBox.value)
+        controller.initData(this, stateComboBox.value)
         stage.show()
     }
 
     @Throws(IOException::class)
     fun editRegion() {
-        if (setRegionComboBox.value == CHOOSE_ALL) {
+        if (regionComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка редагування району"
             alert.headerText = "Оберіть район для редагування"
@@ -345,20 +434,20 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditRegionController>()
-        controller.initData(this, setRegionComboBox.value)
+        controller.initData(this, regionComboBox.value)
         stage.show()
     }
 
     @Throws(SQLException::class)
     fun deleteRegion() {
-        if (setRegionComboBox.value == CHOOSE_ALL) {
+        if (regionComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка видалення району"
             alert.headerText = "Оберіть район для видалення"
             alert.showAndWait()
             return
         }
-        val name = Parser.processQuote(setRegionComboBox.value)
+        val name = Parser.processQuote(regionComboBox.value)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення району"
         alert.headerText = "Видалити \"$name\"?"
@@ -372,7 +461,7 @@ class EnterpriseStateController {
 
     @Throws(IOException::class, SQLException::class)
     fun addCity() {
-        if (setCountryComboBox.value == CHOOSE_ALL || setStateComboBox.value == CHOOSE_ALL || setRegionComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL || stateComboBox.value == CHOOSE_ALL || regionComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка додавання району"
             alert.headerText = "Перевірте поля перед додаванням району"
@@ -386,13 +475,13 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddCityController>()
-        controller.initData(this, setRegionComboBox.value)
+        controller.initData(this, regionComboBox.value)
         stage.show()
     }
 
     @Throws(IOException::class, SQLException::class)
     fun editCity() {
-        if (setCityComboBox.value == CHOOSE_ALL) {
+        if (cityComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка редагування міста"
             alert.headerText = "Оберіть місто для редагування"
@@ -407,20 +496,20 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<EditEnterpriseController>()
-        controller.initData(this, setCityComboBox.value)
+        controller.initData(this, cityComboBox.value)
         stage.show()
     }
 
     @Throws(SQLException::class)
     fun deleteCity() {
-        if (setCityComboBox.value == CHOOSE_ALL) {
+        if (cityComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка видалення міста"
             alert.headerText = "Оберіть місто для видалення"
             alert.showAndWait()
             return
         }
-        val name = Parser.processQuote(setCityComboBox.value)
+        val name = Parser.processQuote(cityComboBox.value)
         val alert = Alert(Alert.AlertType.CONFIRMATION)
         alert.title = "Видалення міста"
         alert.headerText = "Видалити \"$name\"?"
@@ -434,7 +523,7 @@ class EnterpriseStateController {
 
     @Throws(IOException::class, SQLException::class)
     fun addEnterprise() {
-        if (setCountryComboBox.value == CHOOSE_ALL || setStateComboBox.value == CHOOSE_ALL || setRegionComboBox.value == CHOOSE_ALL || setCityComboBox.value == CHOOSE_ALL) {
+        if (countryComboBox.value == CHOOSE_ALL || stateComboBox.value == CHOOSE_ALL || regionComboBox.value == CHOOSE_ALL || cityComboBox.value == CHOOSE_ALL) {
             val alert = Alert(Alert.AlertType.ERROR)
             alert.title = "Помилка додавання підприємства"
             alert.headerText = "Перевірте поля перед додаванням підприємства"
@@ -449,7 +538,7 @@ class EnterpriseStateController {
         stage.scene = Scene(root)
         stage.icons.add(Image("pictures/ico.jpg"))
         val controller = fxmlLoader.getController<AddEnterpriseController>()
-        controller.initData(this, setCityComboBox.value)
+        controller.initData(this, cityComboBox.value)
 
         stage.show()
     }

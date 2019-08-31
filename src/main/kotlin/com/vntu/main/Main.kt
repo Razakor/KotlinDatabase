@@ -15,7 +15,6 @@ class Main : Application() {
     override fun start(primaryStage: Stage) {
         DataBaseConnection.connectToDB()
         initAllData()
-        print(countries)
         val root = FXMLLoader.load<Parent>(Objects.requireNonNull(javaClass.classLoader.getResource("fxml/main_form.fxml")))
         primaryStage.title = "СУБД \"Виробнича Практика\""
         primaryStage.scene = Scene(root, primaryStage.width, primaryStage.height)
